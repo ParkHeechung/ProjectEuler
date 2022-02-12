@@ -1,8 +1,4 @@
-def get_factorial(number):
-    factorial = 1
-    for n in range(1, number + 1):
-        factorial *= n
-    return factorial
+from util import get_factorial
 
 def get_cipher_factorial_sum(number):
     cipher_factorial_sum = 0
