@@ -2,8 +2,8 @@ for p in range(3, 1000):
     p_count = 0
     for c in range(1, 333):
         for a in range(1, c):
-            b = (c**2 - a**2)**0.5
-            if b is int:
+            b = p - c - a
+            if b == (c**2 - a**2)**0.5:
                 p_count += 1
             if c <= b:
                 break
