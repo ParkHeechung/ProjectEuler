@@ -1,25 +1,28 @@
 from util import get_primes
 
-def get_composite_numbers(number):
-    composite_numbers = []
-    primes = get_primes(number)
-    for i in range(2, number + 1):
-        if 2 * i - 1 not in primes:
-            composite_numbers.append(2 * i - 1)
-    return composite_numbers
-            
+def get_odd_composite_numbers(n, primes_set):
+    odd_composite_numbers = []
+    for number in range(2, n):
+        if number % 2 == 1 and number not in primes_set:
+            odd_composite_numbers.append(number) 
+    return odd_composite_numbers
 
-def get_square_numbers(number):
-    square_numbers = []
-    for j in range(1, number + 1):
-        square_numbers.append(j**2)
-    return square_numbers
+def check_combination(odd_composite_number, primes, squares):
+    has_combination = False
+    for square in squares:
+        if (odd_composite_number - 2 * square) in primes:
+            has_combination = True
+            break
+    return has_combination
+        
 
-composite_numbers = get_composite_numbers(100000)
-primes = get_primes(100000)
-for num1 in composite_numbers:
-    for num2 in primes:
-        square_numbers = get_square_numbers(100000)
-        if (num1 - num2) // 2 not in square_numbers:
-            print(num1)
+primes = set(get_primes(10**7))
+odd_composite_numbers = get_odd_composite_numbers(10**7, primes)
+squares = list(map(lambda x: x**2, range(1, 10**4)))
 
+answer = -1
+for odd_composite_number in odd_composite_numbers:
+    has_combination = check_combination(odd_composite_number, primes, squares)
+    if not has_combination:
+        answer = odd_composite_number
+        break
